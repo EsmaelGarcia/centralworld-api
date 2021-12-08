@@ -11,7 +11,6 @@ router.use("/nftitems", require("./nftitems"));
 router.use("/account", require("./account"));
 
 router.use("/collection", require("./collection"));
-console.log('here is OKay.')
 router.use("/tradehistory", require("./tradehistory"));
 router.use("/notifications", require("./notification"));
 // console.log('here is OKay.')
