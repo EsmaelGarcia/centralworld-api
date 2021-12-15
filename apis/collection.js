@@ -3,6 +3,7 @@ const { default: axios } = require('axios');
 const router = require('express').Router();
 
 const ethers = require('ethers');
+
 const mongoose = require('mongoose');
 const Collection = mongoose.model('Collection');
 const Category = mongoose.model('Category');
@@ -14,17 +15,12 @@ const admin_auth = require('./middleware/auth.admin');
 const toLowerCase = require('../utils/utils');
 const isValidERC1155 = require('../utils/1155_validator');
 const isvalidERC721 = require('../utils/721_validator');
-
 const extractAddress = require('../services/address.utils');
-
 const applicationMailer = require('../mailer/reviewMailer');
-
 const FactoryUtils = require('../services/factory.utils');
-
 const validateSignature = require('../apis/middleware/auth.sign');
 
 const MarketplaceContractABI = require('../constants/marketplaceabi');
-
 const MarketplaceContractAddress = process.env.MARKETPLACE_ADDRESS;
 
 // const ftmScanApiKey = process.env.FTM_SCAN_API_KEY;
@@ -45,9 +41,8 @@ const marketplaceSC = new ethers.Contract(
   ownerWallet
 );
 
-
 router.post('/collectiondetails', auth, async (req, res) => {
-  let erc721Address = req.body.erc721Address;
+  let erc721Address = req.body.nftAddress;
   erc721Address = toLowerCase(erc721Address);
 
   let owner = extractAddress(req, res);

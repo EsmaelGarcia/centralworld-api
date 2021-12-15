@@ -7,7 +7,8 @@ const provider = new ethers.providers.JsonRpcProvider(
   parseInt(process.env.NETWORK_CHAINID)
 );
 
-let network = process.env.RUNTIME;
+// let network = process.env.RUNTIME;
+let network = true;
 
 const loadContract = async (isPrivate, is721) => {
   let address;
