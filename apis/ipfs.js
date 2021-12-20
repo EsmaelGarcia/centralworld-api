@@ -222,6 +222,8 @@ router.post("/uploadImage2Server", auth, async (req, res) => {
         let royalty = fields.royalty;
 
         let xtraUrl = fields.xtra;
+        let tokenType = fields.tokenType;
+        let collectionName = fields.collectionName;
         if (xtraUrl && !validUrl.isUri(xtraUrl)) {
           return res.status(400).json({
             status: "failed",
@@ -250,7 +252,9 @@ router.post("/uploadImage2Server", auth, async (req, res) => {
               name,
               symbol,
               royalty,
-              xtraUrl
+              xtraUrl,
+              tokenType,
+              collectionName
             );
 
             // remove file once pinned
@@ -273,7 +277,8 @@ router.post("/uploadImage2Server", auth, async (req, res) => {
                 recipient: address,
                 IP_Rights: xtraUrl,
                 createdAt: currentTime,
-                collection: "Fantom Powered NFT Collection",
+                tokenType:tokenType,
+                collection: collectionName,
               },
             };
 
