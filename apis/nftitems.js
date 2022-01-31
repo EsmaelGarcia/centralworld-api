@@ -208,7 +208,7 @@ const selectTokens = async (req, res) => {
       'soldAt',
       'viewed'
     ];
-
+    console.log('here is okay.')
     const getCategoryCollectionAddresses = async (category) => {
       const categoryCollectionRows = await Collection.find({
         categories: category
@@ -303,6 +303,7 @@ const selectTokens = async (req, res) => {
         when no status option
          */
         /* contract address filter */
+        console.log('you are in here processing.')
         const collectionFilters = {
           ...(collections2filter === null
             ? {}
@@ -773,22 +774,25 @@ router.post('/fetchTokens', async (req, res) => {
   let sortby = req.body.sortby; //sort -> string param
   let from = parseInt(req.body.from);
   let count = parseInt(req.body.count);
-
+  console.log('the type of fetchtoken is ', type)
   let items = [];
   if (type === 'all') {
+    console.log('here is in the condition of type is all')
     let nfts = await selectTokens(req, res);
     let bundles = await selectBundles(req, res);
     items = [...nfts, ...bundles];
   } else if (type === 'single') {
+    console.log('here is in the condition of type is sigle')
     items = await selectTokens(req, res);
   } else if (type === 'bundle') {
+    console.log('here is in the condition of type is bundle')
     items = await selectBundles(req, res);
   }
-
+  console.log('here is fetchtokens endpoint.', items)
   let updatedItems = updatePrices(items);
-
+ 
   let data = sortItems(updatedItems, sortby);
-
+  
   let _searchResults = data.slice(from, from + count);
 
   let searchResults = _searchResults.map((sr) => ({
@@ -847,7 +851,7 @@ router.post('/fetchTokens', async (req, res) => {
       ? { isAppropriate: sr.isAppropriate }
       : { isAppropriate: false })
   }));
-
+  
   return res.json({
     status: 'success',
     data: {
@@ -895,6 +899,38 @@ router.post('/transfer1155History', async (req, res) => {
     });
   }
 });
+
+router.post('/itemdetails', async(req, res)=>{
+
+    let _nftitem = new NFTITEM();
+    
+    _nftitem.contractAddress = req.body.contractAddress
+    _nftitem.tokenID = req.body.tokenID
+    _nftitem.tokenURI = req.body.tokenURI
+    _nftitem.imageURL = req.body.imageURL
+    _nftitem.thumbnailPath = req.body.thumbnailPath
+    _nftitem.symbol = req.body.symbol
+    _nftitem.name = req.body.name
+    _nftitem.owner = req.body.owner
+    _nftitem.royalty = req.body.royalty
+    _nftitem.tokenType = req.body.tokenType
+    _nftitem.contentType = req.body.contentType
+    _nftitem.paymentToken = req.body.paymentToken
+
+    let newItem = await _nftitem.save()
+    // console.log("newItem is ",  newItem.toJson())
+    if(newItem){
+      return res.json({
+        status: 'success',
+        data: newItem
+      });
+    } else {
+      return res.send({
+        status: 'failed'
+      });
+    }
+  
+})
 
 router.post('/getSingleItemDetails', async (req, res) => {
   try {

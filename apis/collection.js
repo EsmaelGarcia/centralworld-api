@@ -231,6 +231,7 @@ router.post('/collectiondetails', auth, async (req, res) => {
           email
         ); // notify register
       }
+      console.log('new collection is ', newCollection.toJSON())
       return res.send({
         status: 'success',
         data: newCollection.toJson()
@@ -274,6 +275,7 @@ router.post('/getMintableCollections', auth, async (req, res) => {
       logoImageHash: collection.logoImageHash,
       type: tokenTypeMap.get(collection.erc721Address)
     }));
+    console.log('Collection Data is ', data)
     return res.json({
       status: 'success',
       data: data
