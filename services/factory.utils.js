@@ -32,11 +32,11 @@ const loadContract = async (isPrivate, is721) => {
 };
 
 const isInternalCollection = async (address, is721) => {
-  let private_sc = await loadContract(true, is721);
+  // let private_sc = await loadContract(true, is721);
   let public_sc = await loadContract(false, is721);
-  let isPrivate = await private_sc.exists(address);
+  // let isPrivate = await private_sc.exists(address);
   let isPublic = await public_sc.exists(address);
-  return [isPrivate || isPublic, isPrivate];
+  return [isPublic];
 };
 
 const FactoryUtils = {

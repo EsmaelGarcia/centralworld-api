@@ -20,6 +20,7 @@ require("./models/account");
 require("./models/bid");
 require("./models/category");
 require("./models/collection");
+require("./models/collectionSongAlbum");
 require("./models/erc721contract");
 require("./models/erc721token");
 require("./models/erc1155contract");

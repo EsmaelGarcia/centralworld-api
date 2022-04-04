@@ -1,5 +1,5 @@
-# Artion-Server
-Code for server side deployment of Fantom Artion Marketplace.
+# CentralWorld-Server
+Code for server side deployment of CentralWorld NFT Marketplace.
 
 ## Project Setup
 ```
